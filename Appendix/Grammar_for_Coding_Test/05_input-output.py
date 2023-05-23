@@ -10,6 +10,10 @@
 # 입력받은 문자열을 띄어쓰기로 구분하여 각각 정수 자료형의 데이터로 저장하는 코드
 data = list(map(int, input().split()))
 
+# 입력의 개수가 굉장히 많은 경우 (cf. input() 함수는 동작 속도가 느림)
+import sys
+data = sys.stdin.readline().rstrip()
+
 """
 
 # 입력을 위한 전형적인 소스코드
