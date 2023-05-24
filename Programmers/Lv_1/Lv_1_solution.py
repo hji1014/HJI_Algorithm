@@ -408,3 +408,45 @@ def solution(arr1, arr2):
 
     return answer
 
+# 직사각형 별찍기
+a, b = map(int, input().strip().split(' '))
+
+for _ in range(b):
+    print("*" * a)
+
+# 최대공약수와 최소공배수
+def solution(n, m):
+    answer = []
+    n_factor = []
+    m_factor = []
+    GCD = []
+    LCM = []
+
+    # n, m 약수 구하기
+    for i in range(1, n + 1):  # n 약수
+        if n % i == 0:
+            n_factor.append(i)
+        else:
+            pass
+
+    for j in range(1, m + 1):  # m 약수
+        if m % j == 0:
+            m_factor.append(j)
+        else:
+            pass
+
+    # 최대공약수 구하기
+    for i in n_factor:
+        if i in m_factor:
+            GCD.append(i)
+        else:
+            pass
+    answer.append(max(GCD))
+
+    # 최소공배수 구하기
+    for i in range(1, (n * m) + 1):
+        if i % n == 0 and i % m == 0:
+            LCM.append(i)
+    answer.append(min(LCM))
+
+    return answer
