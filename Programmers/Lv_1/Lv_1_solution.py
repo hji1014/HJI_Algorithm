@@ -469,7 +469,7 @@ def solution(arr):
 # 3진법 뒤집기 (내 풀이 - 틀렸음)
 """
 <틀린 이유>
-: 
+: 몫이 3보다 작을 때 1을 넣는 것이 아니고... 2가 나올 수도 있음
 """
 def solution(n):
     arr = []
@@ -484,24 +484,23 @@ def solution(n):
             n = share
             m = reminder
             arr.append(m)  # 원래 3진법 결과가 앞뒤 반전되어서 나옴
-            if share < 3:
-                arr.append(1)
-                break
+            #if share < 3:
+            #    arr.append(1)       # 이게 틀림 -> 2가 나올 수 있음
+            #    break
         else:
-            answer = n
+            arr.append(n)
+            #answer = n
             break
 
     arr.reverse()  # 앞뒤 반전을 해야 10진법으로 바꾸기 편함
     print(arr)
 
     # 10진법으로 표현
-    import math
+    import math     # 함수 앞에 하기
     for i in range(len(arr)):
         answer += arr[i] * math.pow(3, i)
 
     return int(answer)
-
-print(solution(45))
 
 # 3진법 뒤집기 (블로그 풀이)
 def solution(n):
@@ -516,25 +515,23 @@ def solution(n):
 
     return int(answer, 3)
 
-print(solution(45))
-
 # 이상한 문자 만들기 (내 풀이 - 틀렸음)
 """
 <틀린 이유>
-: 
+: 아마 중간 if문이 틀린듯. 마지막 공백 문제를 해결할려면 return할 때 인덱싱을 [0:-1]로 하면 됨.
 """
 def solution(s):
     answer = ''
-    sp = s.split()
+    sp = s.split(' ')       # 띄어쓰기를 기준으로 나눈다는 뜻
 
     for voca in sp:
         for i in range(len(voca)):
-            if i == 0 or i % 2 == 0:            # 이 조건은 if i % 2 == 0:과 같음
+            if i % 2 == 0:            # 이 조건은 if i % 2 == 0:과 같음
                 answer += voca[i].upper()
-            elif i == 1 or i % 2 == 1:          # 이 조건은 if i % 2 == 1:과 같음
+            elif i % 2 == 1:          # 이 조건은 if i % 2 == 1:과 같음
                 answer += voca[i].lower()
-        if voca == sp[len(sp) - 1]:
-            break
+        if voca == sp[len(sp) - 1]:         # 이 놈이 문제였음 -> 케이스 여러 개 틀리면 로직이 틀림
+            break                           # 공백이 여러 개 있어서 문제가 생긴 듯
         answer += ' '
 
     return answer
@@ -565,8 +562,67 @@ def solution(d, budget):
         answer += 1
 
     return answer
-  
-    
-    
-    
-    
+
+# 삼총사
+def solution(number):
+    answer = 0
+    import itertools
+    for i in itertools.combinations(number, 3):
+        if sum(i) == 0:
+            answer += 1
+    return answer
+
+# 시저 암호
+def solution(s, n):
+    answer = ''
+    #print(ord('A'), ord('Z'), ord('a'), ord('z'))
+    for i in range(len(s)):
+        if s[i] == ' ':
+            answer += ' '
+        elif s[i].isupper():
+            num = (ord(s[i]) - 65 + n) % 26     # 0과 25 사이로 만들어 놓고 shifting을 시켜준 이후에 26으로 나눈 나머지 값은 어짜피 0~25 사이로 나옴. 이게 핵심
+            answer += chr(num + 65)
+        elif s[i].islower():
+            num = (ord(s[i]) - 97 + n) % 26
+            answer += chr(num + 97)
+        else:
+            pass
+    return answer
+
+# 시저 암호 (join() 함수 썼을 때)
+def solution(s, n):         # join() 쓰면 조건을 줄여줄 수 있음
+    answer = ''
+    s = list(s)
+    # print(ord('A'), ord('Z'), ord('a'), ord('z'))
+    for i in range(len(s)):
+        if s[i].isupper():
+            num = (ord(s[i]) - 65 + n) % 26
+            s[i] = chr(num + 65)
+        elif s[i].islower():
+            num = (ord(s[i]) - 97 + n) % 26
+            s[i] = chr(num + 97)
+
+    return "".join(s)
+
+# 최소 직사각형
+def solution(sizes):
+    w_w = []
+    w_h = []
+
+    for i in sizes:
+        w_w.append(max(i))
+        w_h.append(min(i))
+    answer = max(w_w) * max(w_h)
+
+    return answer
+
+# 크기가 작은 부분 문자열
+def solution(t, p):
+    count = 0
+
+    for i in range(len(t) - len(p) + 1):  # range 값 핵심
+        temp = int(t[i:i + len(p)])
+        if temp <= int(p):
+            count += 1
+
+    return count
