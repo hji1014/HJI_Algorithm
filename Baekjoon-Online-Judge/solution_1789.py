@@ -21,7 +21,7 @@ i = 1
 all_N = []
 while True:
     all_N.append(i)
-    all_sum = sum(all_N)
+    all_sum = sum(all_N)            # 시간복잡도가 엄청 커짐 --> 이게 문제가 된듯
     if all_sum == s:                # 1부터 1씩 커지는 자연수의 합을 더해가다가 s랑 똑같으면 -> 자연수의 개수 자체가 최대값
         print(len(all_N))
         break
@@ -44,8 +44,8 @@ print(f'실행 시간은 : {end_time - start_time} sec')      # 4,294,967,295이
 s = int(input())
 count = 0
 ans = 0
-for i in range(1, s):
-    ans += i
+for i in range(1, s + 1):           # s가 1인 경우, range(1, 1)이 되어서 for문이 안 돌아감
+    ans += i                        # 큰 수 뿐만 아니라 작은 수도 확인...
     count += 1
     if ans > s:
         count -= 1
