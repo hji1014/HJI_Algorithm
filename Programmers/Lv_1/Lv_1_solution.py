@@ -450,3 +450,123 @@ def solution(n, m):
     answer.append(min(LCM))
 
     return answer
+
+# 같은 숫자는 싫어
+def solution(arr):
+    answer = []
+    next_index = 0
+    arr.append(11)          # 들어올 수 있는 수는 0~9 사이의 정수. 입력 마지막에 '11'을 넣어주는 것이 관건이었음
+
+    for i in arr:
+        next_index += 1
+        if next_index >= len(arr):
+            break
+        if i != arr[next_index]:
+            answer.append(i)
+
+    return answer
+
+# 3진법 뒤집기 (내 풀이 - 틀렸음)
+"""
+<틀린 이유>
+: 
+"""
+def solution(n):
+    arr = []
+    m = 0
+    answer = 0
+
+    # 3진수로 변환
+    while True:
+        if n >= 3:
+            share = n // 3
+            reminder = n % 3
+            n = share
+            m = reminder
+            arr.append(m)  # 원래 3진법 결과가 앞뒤 반전되어서 나옴
+            if share < 3:
+                arr.append(1)
+                break
+        else:
+            answer = n
+            break
+
+    arr.reverse()  # 앞뒤 반전을 해야 10진법으로 바꾸기 편함
+    print(arr)
+
+    # 10진법으로 표현
+    import math
+    for i in range(len(arr)):
+        answer += arr[i] * math.pow(3, i)
+
+    return int(answer)
+
+print(solution(45))
+
+# 3진법 뒤집기 (블로그 풀이)
+def solution(n):
+
+    answer = ''
+
+    while n >= 1:
+        rest = n % 3
+        n = n // 3
+        answer += str(rest)
+    print(answer)
+
+    return int(answer, 3)
+
+print(solution(45))
+
+# 이상한 문자 만들기 (내 풀이 - 틀렸음)
+"""
+<틀린 이유>
+: 
+"""
+def solution(s):
+    answer = ''
+    sp = s.split()
+
+    for voca in sp:
+        for i in range(len(voca)):
+            if i == 0 or i % 2 == 0:            # 이 조건은 if i % 2 == 0:과 같음
+                answer += voca[i].upper()
+            elif i == 1 or i % 2 == 1:          # 이 조건은 if i % 2 == 1:과 같음
+                answer += voca[i].lower()
+        if voca == sp[len(sp) - 1]:
+            break
+        answer += ' '
+
+    return answer
+
+# 이상한 문자 만들기 (블로그 풀이)
+def solution(s):
+    answer = ''
+    new_list = s.split(' ')
+    for i in new_list:
+        for j in range(len(i)):
+            if j % 2 == 0:
+                answer += i[j].upper()
+            else:
+                answer += i[j].lower()
+        answer+= ' '
+    return answer[0:-1]
+
+# 예산
+def solution(d, budget):
+
+    answer = 0
+    cost_sum = 0
+    d.sort()                        # 여기서 핵심은 budget을 완벽히 소진할 필요는 없다는 것
+    for i in d:
+        cost_sum += i
+        if cost_sum > budget:       # 같을 때도 answer에 +1을 해줘야 함
+            break
+        answer += 1
+
+    return answer
+  
+    
+    
+    
+    
