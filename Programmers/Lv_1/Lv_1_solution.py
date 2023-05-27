@@ -626,3 +626,68 @@ def solution(t, p):
             count += 1
 
     return count
+
+# [1차] 비밀지도
+def solution(n, arr1, arr2):
+    answer = []
+    answer_encoding = []
+    arr1_decoding = []
+    arr2_decoding = []
+
+    for i in range(n):
+        remainders = []
+        num = arr1[i]
+        while num != 0:
+            remainder = num % 2
+            remainders.append(remainder)
+            num = num // 2
+        while len(remainders) != n:
+            remainders.append(0)
+        remainders.reverse()
+        arr1_decoding.append(remainders)
+
+    for i in range(n):
+        remainders = []
+        num = arr2[i]
+        while num != 0:
+            remainder = num % 2
+            remainders.append(remainder)
+            num = num // 2
+        while len(remainders) != n:
+            remainders.append(0)
+        remainders.reverse()
+        arr2_decoding.append(remainders)
+
+    for i in range(n):
+        answer_row = []
+        for j in range(n):
+            arr1_row = arr1_decoding[i]
+            arr2_row = arr2_decoding[i]
+            if arr1_row[j] == 0 and arr2_row[j] == 0:
+                answer_row.append(0)
+            else:
+                answer_row.append(1)
+        answer_encoding.append(answer_row)
+
+    for i in range(n):
+        ans = ''
+        for j in range(n):
+            if answer_encoding[i][j] == 1:
+                ans += '#'
+            else:
+                ans += ' '
+        answer.append(ans)
+
+    return answer
+
+# [1차] 비밀지도 (다른 사람의 간략한 풀이)
+def solution(n, arr1, arr2):
+    answer = []
+    for i, j in zip(arr1, arr2):
+        a12 = str(bin(i|j)[2:])
+        a12 = a12.rjust(n,'0')
+        a12 = a12.replace('1','#')
+        a12 = a12.replace('0',' ')
+        answer.append(a12)
+    return answer
+
