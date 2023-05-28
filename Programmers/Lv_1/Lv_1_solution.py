@@ -766,3 +766,13 @@ def solution(strings, n):
         answer.append(j[1:])        # 맨 앞 target 알파벳 뒤부터 떼어서 제출
 
     return answer
+
+# K번째수
+def solution(array, commands):
+    answer = []
+    for i in commands:
+        temp_arr = array[(i[0]-1):i[1]]
+        temp_arr.sort()
+        temp_element = temp_arr[i[2]-1]
+        answer.append(temp_element)
+    return answer
