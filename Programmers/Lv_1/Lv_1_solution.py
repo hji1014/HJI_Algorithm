@@ -691,3 +691,78 @@ def solution(n, arr1, arr2):
         answer.append(a12)
     return answer
 
+# 숫자 문자열과 영단어
+def solution(s):
+    num_dict = dict()
+    num_dict['zero'] = '0'
+    num_dict['one'] = '1'
+    num_dict['two'] = '2'
+    num_dict['three'] = '3'
+    num_dict['four'] = '4'
+    num_dict['five'] = '5'
+    num_dict['six'] = '6'
+    num_dict['seven'] = '7'
+    num_dict['eight'] = '8'
+    num_dict['nine'] = '9'
+    key_list = num_dict.keys()
+
+    for i in key_list:
+        if i in s:
+            print(type(i))
+            s = s.replace(i, num_dict[i])
+
+    answer = int(s)
+
+    return answer
+
+# 문자열 내 마음대로 정렬하기 (내 풀이)
+"""
+<틀린 이유>
+: 간단하지만 기발한 아이디어를 생각해내야 함. 아니면 너무 어려운 로직을 구현해야함. 그러면 시간이 많이 걸리고, 구현이 불가능하기도 함.
+"""
+def solution(strings, n):
+    answer = []
+    rank = []
+    rank_index = []
+    target_others = []
+
+    for i in strings:
+        # others = i[n:].split(' ')와 다름
+        others = list(i[n + 1:])
+        others_sum = 0
+        for j in others:
+            others_sum += ord(j)
+
+        list_2d = [ord(i[n]), others_sum]
+        # [n번째 유니코드, n+1번째 이후 유니코드의 합]
+        target_others.append(list_2d)
+        # rank.append(ord(i[n]))
+    rank_sorted = sorted(rank)
+    print(rank_sorted)
+
+    for i in range(len(rank_sorted)):
+        print(i)
+    for i in rank_sorted:
+        rank_index.append(rank.index(i))
+
+    # 똑같은 경우 뒤에 문자 번호 다 더해서 작은 순으로
+    # for i in
+    # print(rank_index)
+
+    for i in rank_index:
+        answer.append(strings[i])
+
+    return answer
+
+# 문자열 내 마음대로 정렬하기 (블로그 풀이)
+def solution(strings, n):
+    temp = []
+    answer = []
+
+    for i in strings:
+        temp.append(i[n] + i)       # target 알파벳을 각각의 단어 앞에 합쳐줌
+    temp.sort()                     # temp를 정렬 시킨 후
+    for j in temp:
+        answer.append(j[1:])        # 맨 앞 target 알파벳 뒤부터 떼어서 제출
+
+    return answer
