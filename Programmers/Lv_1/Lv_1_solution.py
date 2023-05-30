@@ -776,3 +776,41 @@ def solution(array, commands):
         temp_element = temp_arr[i[2]-1]
         answer.append(temp_element)
     return answer
+
+# 두 개 뽑아서 더하기
+import itertools
+
+def solution(numbers):
+    sums = []
+
+    for i in itertools.combinations(numbers, 2):
+        sums.append(sum(i))
+    sums_set = set(sums)
+    answer = list(sums_set)
+    answer.sort()
+
+    return answer
+
+# 푸드 파이트 대회
+def solution(food):
+    answer = ''
+    food_num = 1
+    arr1 = []
+
+    for i in food[1:]:
+        if i % 2 == 1:
+            i -= 1
+        for j in range(i // 2):
+            arr1.append(food_num)
+        food_num += 1
+
+    arr2 = arr1.copy()
+    arr2.reverse()
+    answer_list = arr1 + [0] + arr2
+
+    for i in answer_list:
+        answer += str(i)
+
+    return answer
+
+#
