@@ -785,7 +785,7 @@ def solution(numbers):
 
     for i in itertools.combinations(numbers, 2):
         sums.append(sum(i))
-    sums_set = set(sums)
+    sums_set = set(sums)        # 중복제거 방법 : 리스트에서 셋으로 바꿨다가 다시 리스트로 변환
     answer = list(sums_set)
     answer.sort()
 
@@ -805,7 +805,7 @@ def solution(food):
         food_num += 1
 
     arr2 = arr1.copy()
-    arr2.reverse()
+    arr2.reverse()          # reverse() 함수를 사용하면 원본 리스트가 변환되므로 copy()로 복사하고 해야 함
     answer_list = arr1 + [0] + arr2
 
     for i in answer_list:
@@ -813,4 +813,36 @@ def solution(food):
 
     return answer
 
-#
+# 콜라 문제 (내 풀이)
+"""
+<틀린 이유>
+: 빈 병의 현재 상태는 n=n//a가 아니라 n=b*(n//a)라는 개념을 틀린듯 함.
+"""
+def solution(a, b, n):
+    answer = 0
+    remainder = 0
+    while n > 0:
+        answer += b * (n // a)
+        remainder += n % a
+        if remainder >= a:
+            answer += b * (remainder // a)
+            remainder -= remainder // a
+        n = n // a  # 여기가 틀린듯. n의 현재 상태는 (n//a) * b로 되어야지...
+
+    return answer
+
+# 콜라 문제 (블로그 풀이)
+"""
+ref : https://velog.io/@seulki971227/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-Lv.1-%EC%BD%9C%EB%9D%BC-%EB%AC%B8%EC%A0%9C-Python
+"""
+def solution(a, b, n):
+    answer = 0
+    # 단, 보유 중인 빈 병이 2개 미만이면, 콜라를 받을 수 없다.
+    # 빈 병의 개수가 콜라를 받기 위해서 필요한 개수보다 크면 반복한다
+    while n >= a:
+        remain_bottle = n % a
+        n = (n//a) * b # 마트에서 받은 콜라의 수
+        answer += n # 받은 걸 answer에 +
+        n += remain_bottle # 남아있는 병을 더해줘서 다음에 마트갈 때 이용
+    return answer  
+  
