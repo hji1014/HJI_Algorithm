@@ -17,7 +17,7 @@
 # - 가 있고 그 다음이 +인 경우에 그 다음꺼를 -로 바꾸면 될 듯?
 
 expression = input()
-sp = list(''.join(expression))
+sp = list(''.join(expression))      # sp = list(expression)으로 쓰면 됨. join은 의미 없음
 num = []
 temp = ''
 
@@ -69,6 +69,3 @@ for i in range(1, len(num)):
     ans -= num[i]
 
 print(ans)
-
-
-
