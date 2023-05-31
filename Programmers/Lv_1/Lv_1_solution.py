@@ -844,5 +844,54 @@ def solution(a, b, n):
         n = (n//a) * b # 마트에서 받은 콜라의 수
         answer += n # 받은 걸 answer에 +
         n += remain_bottle # 남아있는 병을 더해줘서 다음에 마트갈 때 이용
-    return answer  
-  
+    return answer
+
+# 가장 가까운 같은 글자
+def solution(s):
+    answer = []
+    s_list = list(s)
+    for i in range(len(s_list)):
+        if i == 0:
+            answer.append(-1)
+        else:
+            if s_list[i] in s_list[:i]:
+                temp_reverse = s_list[:i].copy()
+                temp_reverse.reverse()
+                temp_index = temp_reverse.index(s_list[i])
+                answer.append(temp_index + 1)
+            else:
+                answer.append(-1)
+    return answer
+
+# 추억 점수
+def solution(name, yearning, photo):
+    answer = []
+    score_dict = {}
+    for i, j in zip(name, yearning):
+        score_dict[i] = j
+    for i in range(len(photo)):
+        answer_score = 0
+        intersection = set(name) & set(photo[i])    # 교집합 찾기
+        intersection = list(intersection)
+        for j in intersection:
+            answer_score += score_dict[j]
+        answer.append(answer_score)
+    return answer
+
+# 2016년
+def solution(a, b):
+    day = ['FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU']
+    last_date = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    month = [i for i in range(1, 13)]
+    calendar = {}  # "3월5일" : 'SAT'
+    count = 0
+    for i in month:
+        for j in range(1, last_date[i - 1] + 1):
+            order = count % 7
+            name = f'{i}_{j}'
+            calendar[name] = day[order]
+            count += 1
+    answer_date = f'{a}_{b}'
+    answer = calendar[answer_date]
+
+    return answer
