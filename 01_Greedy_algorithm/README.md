@@ -1,5 +1,8 @@
 ### 당장 좋은 것만 선택하는 그리디
 --------------------------------------------------------------------------------------------------------------------------------------------  
 > This is a first blockqute.  
->	> This is a second blockqute.
+>	> This is a second blockqute.  
 >	>	> This is a third blockqute.  
+- 안녕
+- 안녕
+-   - 안녕
