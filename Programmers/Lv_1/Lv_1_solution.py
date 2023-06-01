@@ -823,7 +823,7 @@ def solution(a, b, n):
     remainder = 0
     while n > 0:
         answer += b * (n // a)
-        remainder += n % a
+        remainder += n % a              # 이걸 n에 더해야 함
         if remainder >= a:
             answer += b * (remainder // a)
             remainder -= remainder // a
@@ -895,3 +895,93 @@ def solution(a, b):
     answer = calendar[answer_date]
 
     return answer
+
+# 폰켓몬
+def solution(nums):
+    answer = 0
+    set_nums = set(nums)
+    if len(nums) // 2 < len(set_nums):
+        answer = len(nums) // 2
+    else:
+        answer = len(set_nums)
+    return answer
+
+# 명예의 전당 (1)
+def solution(k, score):
+    answer = []
+    k_arr = []
+    for i in range(len(score)):
+        if i < k:
+            k_arr.append(score[i])
+            answer.append(min(k_arr))
+        else:
+            k_arr.append(score[i])
+            k_arr.remove(min(k_arr))
+            answer.append(min(k_arr))
+    return answer
+
+# 모의고사
+def solution(answers):
+    answer = []
+    score_1 = 0
+    score_2 = 0
+    score_3 = 0
+    answer_1 = []
+    answer_2 = []
+    answer_3 = []
+    pattern_1 = [1, 2, 3, 4, 5]
+    pattern_2 = [2, 1, 2, 3, 2, 4, 2, 5]
+    pattern_3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+
+    share_1 = len(answers) // len(pattern_1)
+    remainder_1 = len(answers) % len(pattern_1)
+    answer_1 = answer_1 + (pattern_1 * share_1) + pattern_1[0:remainder_1]
+
+    share_2 = len(answers) // len(pattern_2)
+    remainder_2 = len(answers) % len(pattern_2)
+    answer_2 = answer_2 + (pattern_2 * share_2) + pattern_2[0:remainder_2]
+
+    share_3 = len(answers) // len(pattern_3)
+    remainder_3 = len(answers) % len(pattern_3)
+    answer_3 = answer_3 + (pattern_3 * share_3) + pattern_3[0:remainder_3]
+
+    for i, j, k, l in zip(answers, answer_1, answer_2, answer_3):
+        if j == i:
+            score_1 += 1
+        else:
+            pass
+        if k == i:
+            score_2 += 1
+        else:
+            pass
+        if l == i:
+            score_3 += 1
+        else:
+            pass
+
+    scores = [score_1, score_2, score_3]
+    max_scores = max(scores)
+    for i in range(3):
+        if scores[i] == max_scores:
+            answer.append(i + 1)
+
+    return answer
+
+# 과일 장수
+def solution(k, m, score):
+    answer = 0
+    box_num = len(score) // m
+    all_package = []
+
+    if box_num == 0:
+        return 0
+    else:
+        score_sort = sorted(score, reverse=True)
+        for i in range(box_num):
+            package = []
+            for j in range(m):
+                package.append(score_sort[j + (i * m)])
+            all_package.append(package)
+        for i in all_package:
+            answer += min(i) * m
+        return answer
