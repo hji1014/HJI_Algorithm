@@ -15,9 +15,10 @@
 
 """
 # 접근 방식
-# 서류 or 면접 중 하나라도 다른 지원자보다 높나?를 체크
+# 1차 점수를 오름차순으로 정렬 후 2차 점수를 위에서부터 나머지 2차 점수와 비교
+# 둘 다 떨어지면 탈락
 
-# 내 풀이 -> 시간 초과 뜨는 중
+# 내 풀이 (1) -> 시간 초과 뜨는 중
 t = int(input())
 ans = []
 for i in range(t):
@@ -27,13 +28,12 @@ for i in range(t):
     for j in range(n):
         data.append(list(map(int, input().split(' '))))
     data_sorted = sorted(data, key=lambda x : x[0], reverse=True)
-    arr = [k[1] for k in data_sorted]
     for j, k in data_sorted:
         if j == 1:
             pass
         else:
             count += 1
-            if k > min(arr[count:]):
+            if k > min([i[1] for i in data_sorted[count:]]):    # min() 함수 문제
                 n -= 1
             else:
                 pass
@@ -41,3 +41,23 @@ for i in range(t):
 
 for i in ans:
     print(i)
+
+# 내 풀이 (2) -> 블로그 풀이 참고함 -> 아직도 시간초과 뜸
+"""
+ref : https://velog.io/@ledcost/%EB%B0%B1%EC%A4%80-1946-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%8B%A0%EC%9E%85-%EC%82%AC%EC%9B%90-%EC%8B%A4%EB%B2%841-%EA%B7%B8%EB%A6%AC%EB%94%94
+"""
+import sys
+t = int(sys.stdin.readline().rstrip())
+for i in range(t):
+    n = int(sys.stdin.readline().rstrip())
+    data = []
+    top = 0
+    result = 1          # 서류 1등은 무조건 됨
+    for j in range(n):
+        data.append(list(map(int, sys.stdin.readline().rstrip().split(' '))))
+    data_sorted = sorted(data, key=lambda x: x[0])
+    for j in range(1, len(data_sorted)):
+        if data_sorted[j][1] < data_sorted[top][1]:
+            top = j
+            result += 1
+    print(n)
