@@ -34,15 +34,14 @@ ref : https://jokerldg.github.io/algorithm/2021/03/11/meeting-room.html
 a1 = sorted(meeting_time, key=lambda a: a[0])
 a2 = sorted(a1, key=lambda a: a[1])
 b1 = sorted(meeting_time, key=lambda a:a[1])
-a2와 b1은 같지 않나?
-반례 ->
+a2와 b1은 같지 않나? -> 아마 두 번 sorting 하는 것이 큰 의미 없는 것 같다고 생각됨
 """
 n = int(input())
 meeting_time = []
 for i in range(n):
     meeting_time.append(list(map(int, input().split(' '))))
-meeting_time.sort(key=lambda a: a[0])
-meeting_time.sort(key=lambda a: a[1])
+meeting_time.sort(key=lambda x: x[0])
+meeting_time.sort(key=lambda x: x[1])
 last = 0
 count = 0
 for i, j in meeting_time:
