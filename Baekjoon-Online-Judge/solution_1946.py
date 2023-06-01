@@ -43,6 +43,7 @@ for i in ans:
     print(i)
 
 # 내 풀이 (2) -> 블로그 풀이 참고함 -> 아직도 시간초과 뜸
+# -> Pypy3로 냈을 때 틀렸다고 나오는 것을 보니, 로직이 틀린듯.
 """
 ref : https://velog.io/@ledcost/%EB%B0%B1%EC%A4%80-1946-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%8B%A0%EC%9E%85-%EC%82%AC%EC%9B%90-%EC%8B%A4%EB%B2%841-%EA%B7%B8%EB%A6%AC%EB%94%94
 """
