@@ -819,6 +819,9 @@ def solution(food):
 : 빈 병의 현재 상태는 n=n//a가 아니라 n=b*(n//a)라는 개념을 틀린듯 함.
 """
 def solution(a, b, n):
+    a = 3
+    b = 1
+    n = 20
     answer = 0
     remainder = 0
     while n > 0:
@@ -828,6 +831,7 @@ def solution(a, b, n):
             answer += b * (remainder // a)
             remainder -= remainder // a
         n = n // a  # 여기가 틀린듯. n의 현재 상태는 (n//a) * b로 되어야지...
+    print(answer)
 
     return answer
 
@@ -985,3 +989,44 @@ def solution(k, m, score):
         for i in all_package:
             answer += min(i) * m
         return answer
+
+# 소수 만들기
+
+# 소수 찾기 (내 풀이)
+"""
+틀린 이유 : 시간 초과
+"""
+def solution(n):
+    answer = 0
+    for i in range(1, n + 1):
+        judge = 0
+        if i == 1:
+            pass
+        else:
+            for j in range(1, i + 1):
+                if i % j == 0:
+                    judge += 1
+                else:
+                    pass
+            if judge <= 2:
+                answer += 1
+            else:
+                pass
+    return answer
+
+# 소수 찾기 (블로그 풀이)
+"""
+에라토스테네스의 체(Sieve of Eratosthenes) 방법 사용된 코드
+ref : https://wackylife.tistory.com/22
+"""
+def solution(n):
+    answer = 0
+    num = set(range(2, n + 1))
+
+    for i in range(2, n + 1):
+        if i in num:
+            num -= set(range(2 * i, n + 1, i))  # i가 num 안에 있으면, i를 제외한 i의 배수를 모두 제거
+    answer = len(num)
+    return answer
+
+#
