@@ -991,6 +991,21 @@ def solution(k, m, score):
         return answer
 
 # 소수 만들기
+import itertools
+
+def solution(nums):
+    answer = 0
+
+    for i in list(itertools.combinations(nums, 3)):
+        num = sum(i)
+        count = 0
+        for j in range(2, num + 1):
+            if num % j == 0:
+                count += 1
+        if count == 1:
+            answer += 1
+
+    return answer
 
 # 소수 찾기 (내 풀이)
 """
@@ -1029,4 +1044,208 @@ def solution(n):
     answer = len(num)
     return answer
 
-#
+# 카드 뭉치
+def solution(cards1, cards2, goal):
+    cards1_order = 0
+    cards2_order = 0
+    answers = ['Yes', 'No']
+
+    for i in goal:
+        if i in cards1:
+            if cards1_order == cards1.index(i):
+                cards1_order += 1
+                if goal.index(i) == len(goal) - 1:
+                    answer = answers[0]
+                    break
+                else:
+                    continue
+            else:
+                answer = answers[1]
+                break
+        else:
+            if cards2_order == cards2.index(i):
+                cards2_order += 1
+                if goal.index(i) == len(goal) - 1:
+                    answer = answers[0]
+                    break
+                else:
+                    continue
+            else:
+                answer = answers[1]
+                break
+
+    return answer
+
+# 실패율
+def solution(N, stages):
+    fail_rate_dict = {}
+    num = len(stages)
+    for i in range(1, N + 2):
+        if i == N + 1:
+            break
+        count = 0
+        for j in stages:
+            if j == i:
+                count += 1
+        if num == 0:
+            fail_rate_dict[f'{i}'] = 0
+        else:
+            fail_rate_dict[f'{i}'] = count / num
+            num -= count
+    fail_rate_dict_sorted = sorted(fail_rate_dict.items(), key=lambda x : x[1], reverse=True)       # dict sorting method
+    answer = list(dict(fail_rate_dict_sorted).keys())
+    answer = [int(i) for i in answer]
+    return answer
+
+# 다트 게임 (내 풀이)
+"""
+틀린 이유 : 굳이 case를 나누지 않아도 됐음. *이 하나 뒤 케이스에 포함되어 결국 문제를 일으킴,
+argument of type 'int' is not iterable 이 에러도 뜸. for문 안에 int 들어가는거 때문에 생긴 문제 같지는 않음...
+"""
+def solution(dartResult):
+    dartResult = '1S2D*3T'
+    answer = 0
+    single_case = ''
+
+    cases = []
+    for i in list(dartResult):
+        if i.isalpha():
+            single_case += i
+            cases.append(single_case)
+            single_case = ''
+        else:
+            single_case += i
+    print(cases)
+
+    num_arr = []
+    for i in range(3):
+        now = cases[i]
+        num = ''
+        for j in list(now):
+            if j.isdigit():
+                num += j
+        num_arr.append(num)
+    num_arr = list(map(int, num_arr))
+
+    num_arr_sdt = []
+    for i, j in zip(cases, num_arr):
+        if 'S' in i:
+           val = j ** 1
+        elif 'D' in i:
+           val = j ** 2
+        elif 'T' in i:
+           val = j ** 3
+        else:
+           pass
+        num_arr_sdt.append(val)
+    print(num_arr_sdt)
+
+    if '*' in cases[0] and '*' not in cases[1] and '*' not in cases[2]:
+        num_arr_sdt[0] = 2 * num_arr_sdt[0]
+    elif '*' not in cases[0] and '*' in cases[1] and '*' not in cases[2]:
+        num_arr_sdt[0] = 2 * num_arr_sdt[0]
+        num_arr_sdt[1] = 2 * num_arr_sdt[1]
+    elif '*' not in cases[0] and '*' not in cases[1] and '*' in cases[2]:
+        num_arr_sdt[1] = 2 * num_arr_sdt[1]
+        num_arr_sdt[2] = 2 * num_arr_sdt[2]
+    elif '*' in cases[0] and '*' in cases[1] and '*' not in cases[2]:
+        num_arr_sdt[0] = 4 * num_arr_sdt[0]
+        num_arr_sdt[1] = 2 * num_arr_sdt[1]
+    elif '*' not in cases[0] and '*' in cases[1] and '*' in cases[2]:
+        num_arr_sdt[0] = 2 * num_arr_sdt[0]
+        num_arr_sdt[1] = 4 * num_arr_sdt[1]
+        num_arr_sdt[2] = 2 * num_arr_sdt[2]
+    elif '*' in cases[0] and '*' not in cases[1] and '*' in cases[2]:
+        num_arr_sdt[0] = 2 * num_arr_sdt[0]
+        num_arr_sdt[1] = 2 * num_arr_sdt[1]
+        num_arr_sdt[2] = 2 * num_arr_sdt[2]
+    elif '*' in cases[0] and '*' in cases[1] and '*' in cases[2]:
+        num_arr_sdt[0] = 4 * num_arr_sdt[0]
+        num_arr_sdt[1] = 4 * num_arr_sdt[1]
+        num_arr_sdt[2] = 2 * num_arr_sdt[2]
+
+    print(num_arr_sdt)
+
+    return answer
+
+# [1차] 다트 게임 (블로그 풀이)
+"""
+ref : https://velog.io/@godiva7319/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-Level1-1%EC%B0%A8-%EB%8B%A4%ED%8A%B8-%EA%B2%8C%EC%9E%84-Python
+* 스택 풀이 : https://latte-is-horse.tistory.com/136
+"""
+def solution(dartResult):
+    n = ''
+    score = []
+    for i in dartResult:
+        if i.isdigit():
+            n += i
+        elif i == 'S':
+            n = int(n) ** 1
+            score.append(n)
+            n = ''
+        elif i == 'D':
+            n = int(n) ** 2
+            score.append(n)
+            n = ''
+        elif i == 'T':
+            n = int(n) ** 3
+            score.append(n)
+            n = ''
+        elif i == '*':
+            if len(score) > 1:
+                score[-2] = score[-2] * 2
+                score[-1] = score[-1] * 2
+            else:
+                score[-1] = score[-1] * 2
+        elif i == '#':
+            score[-1] = score[-1] * -1
+
+    return sum(score)
+
+# 덧칠하기
+# 접근 방식 : 붓의 길이가 하나냐 하나 이상이냐 -> 더했을 때 인덱스 넘어가냐 안 넘어가냐
+"""
+틀린 이유 : 번뜩이는 아이디어를 떠올리지 못함. 무작정 구현할려고만 했음
+"""
+n, m = 8, 4
+section = [2, 3, 6]
+wall = [1 for _ in range(n)]
+for i in section:
+    wall[i - 1] = 0
+count = 0
+zero_num = wall.count(0)
+while zero_num > 0:
+    if m != 1:
+        for i in section:
+            if wall[i-1] == 0:
+                if (i + m - 1) <= n:
+                    for j in range(i-1, i-1+m):
+                        wall[j] = 1
+                    count += 1
+                    zero_num = wall.count(0)
+                elif (i + m -1) > n:
+                    for j in range(i-m, i):
+                        wall[j] = 1
+                    count += 1
+                    zero_num = wall.count(0)
+                else:
+                    pass
+            else:
+                continue
+    else:
+        count = len(section)
+        break
+
+# 덧칠하기
+"""
+ref: https://dduniverse.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8D%A7%EC%B9%A0%ED%95%98%EA%B8%B0-%ED%8C%8C%EC%9D%B4%EC%8D%AC-python
+"""
+def solution(n, m, section):
+    answer = 1  # 칠하는 횟수
+    paint = section[0]  # 덧칠 시작점
+    for i in range(1, len(section)):
+        if section[i] - paint + 1 > m:
+            answer += 1
+            paint = section[i]
+
+    return answer
