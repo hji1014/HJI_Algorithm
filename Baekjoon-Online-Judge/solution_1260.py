@@ -16,31 +16,31 @@
 
 """
 # 내 풀이
+
 """
-틀린 이유 : 입력을 그래프로 구현하는 것에서 막힘
+method (1) print문 사용하여 2줄로 출력하기
 """
+
+# 입력 받고 graph 만들기
 n, m, v = map(int, input().split(' '))
-
-# =================================================================================================== #
-
-# 블로그 풀이
-n, m, v = map(int, input().split(' '))
-
 graph = [[] for _ in range(n + 1)]
-for i in range(m):                                  # 그래프 만들기
+for i in range(m):
     a, b = map(int, input().split(' '))
     graph[a].append(b)
     graph[b].append(a)
-for i in range(n + 1):
-    graph[i].sort()
+for i in graph:
+    i.sort()
 
+# DFS
+visited1 = [False for _ in range(n + 1)]
 def dfs(graph, v, visited1):
     visited1[v] = True
     print(v, end=' ')
     for i in graph[v]:
-        if not visited1[i]:
+        if visited1[i] == False:
             dfs(graph, i, visited1)
 
+# BFS
 def bfs(graph, v):
     need_visited, visited2 = [], []
     need_visited.append(v)
@@ -53,8 +53,47 @@ def bfs(graph, v):
     for i in range(len(visited2)):
         print(visited2[i], end=' ')
 
-
-visited1 = [False] * (n + 1)
 dfs(graph, v, visited1)
 print()
+bfs(graph, v)
+
+"""
+method (2) arr 두 줄로 경로 출력하기
+"""
+
+# 입력 받고 graph 만들기
+n, m, v = map(int, input().split(' '))
+graph = [[] for _ in range(n + 1)]
+for _ in range(m):
+    a, b = map(int, input().split(' '))
+    graph[a].append(b)
+    graph[b].append(a)
+for i in graph:
+    i.sort()
+
+# DFS
+visited1 = [False] * (n + 1)
+route1 = []
+def dfs(graph, v, visited1):
+    visited1[v] = True
+    route1.append(v)
+    for i in graph[v]:
+        if visited1[i] == False:
+            dfs(graph, i, visited1)
+    return route1
+
+dfs(graph, v, visited1)
+
+# BFS
+def bfs(graph, v):
+    need_visited, visited2 = [], []
+    need_visited.append(v)
+    while need_visited:
+        node = need_visited[0]
+        del need_visited[0]
+        if node not in visited2:
+            visited2.append(node)
+            need_visited.extend(graph[node])
+    return visited2
+
 bfs(graph, v)
