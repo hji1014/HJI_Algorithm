@@ -14,6 +14,11 @@
 : 첫째 줄에 문제의 정답을 출력한다. 만약 A를 B로 바꿀 수 없다면 -1을 출력한다.
 
 """
+
+"""
+ref : https://jokerldg.github.io/algorithm/2021/03/14/matrix.html
+"""
+
 n, m = map(int, input().split(' '))
 arr1 = []
 arr2 = []
