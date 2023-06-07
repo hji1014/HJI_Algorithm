@@ -224,3 +224,30 @@ def solution(array, height):
         if i > height:
             answer += 1
     return answer
+
+# 배열 두배 만들기
+def solution(numbers):
+    return [i * 2 for i in numbers]
+
+# 정수 부분
+def solution(flo):
+    return int(flo)
+
+# 부분 문자열
+def solution(str1, str2):
+    if str1 in str2:
+        return 1
+    else:
+        return 0
+
+# 문자열을 정수로 변환하기
+def solution(n_str):
+    return int(n_str)
+
+# 공배수
+def solution(number, n, m):
+    if number % n == 0 and number % m == 0:
+        return 1
+    else:
+        return 0
+
