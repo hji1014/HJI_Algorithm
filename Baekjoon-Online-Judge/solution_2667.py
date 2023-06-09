@@ -57,6 +57,9 @@ print(result)
 for i in house_num:
     print(i)
 
+# ================================================================================================================= #
+
+
 # BFS로 풀기
 f = open('C:/Users/User/Desktop/허준일/개인자료/취업준비/코딩테스트/test_case/BJ_2667.txt', 'r')
 n = int(f.readline().rstrip())
@@ -99,20 +102,3 @@ house_num.sort()
 print(len(house_num))
 for i in house_num:
     print(i)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
