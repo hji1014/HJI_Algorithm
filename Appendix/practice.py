@@ -151,3 +151,117 @@ def bfs(x, y):                    # list로 구현
     return graph[n - 1][m - 1]
 
 print(bfs(0, 0))
+
+# ================================================================================================================= #
+
+# DFS/BFS 문제 (BJ_1260)
+n, m, v = map(int, input().split(' '))
+graph = [[] for _ in range(n + 1)]
+for i in range(m):
+    a, b = map(int, input().split(' '))
+    graph[a].append(b)
+    graph[b].append(a)
+for i in graph:
+    i.sort()
+
+visited = [False] * (n + 1)                         ### DFS ###
+order = []
+#order = 0
+def dfs(graph, v, visited):
+    visited[v] = True
+    order.append(v)
+    # 전역 변수로 쓰는 경우
+    #global order
+    #order += 1
+    for i in graph[v]:
+        if visited[i] == False:
+            dfs(graph, i, visited)
+    return order
+
+dfs(graph, v, visited)
+
+from collections import deque                       ### BFS ###
+def bfs(graph, v):
+    need_visited, visited = deque([]), []
+    need_visited.append(v)
+    while need_visited:
+        node = need_visited.popleft()
+        #del need_visited[0]
+        if node not in visited:
+            visited.append(node)
+            need_visited.extend(graph[node])
+    return visited
+
+bfs(graph, v)
+
+# ================================================================================================================= #
+
+# DFS/BFS 문제 (BJ_2667)
+#n = int(input())
+#graph = []
+#for i in range(n):
+#    graph.append(list(map(int, input())))
+
+f = open('C:/Users/User/Desktop/허준일/개인자료/취업준비/코딩테스트/test_case/BJ_2667.txt', 'r')
+n = int(f.readline().rstrip())
+graph = []
+for _ in range(n):
+    graph.append(list(map(int, f.readline().rstrip())))
+f.close()
+
+count = 0
+complex_num = 0
+house_num = []
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def dfs(x, y):                                                  ### DFS ###
+    if x <= -1 or x >= n or y <= -1 or y >= n:
+        return False
+    if graph[x][y] == 1:
+        global count
+        count += 1
+        graph[x][y] = 0
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            dfs(nx, ny)
+        return True
+    else:
+        return False
+
+for i in range(n):
+    for j in range(n):
+        if dfs(i, j) == True:
+            complex_num += 1
+            house_num.append(count)
+            count = 0
+
+from collections import deque                                   ### BFS ###
+def bfs(a, b):
+    q = deque()
+    q.append((a, b))
+    graph[a][b] = 0
+    count = 1
+    while q:
+        x, y = q.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx <= -1 or nx >= n or ny <= -1 or ny >= n:
+                continue
+            if graph[nx][ny] == 1:
+                graph[nx][ny] = 0
+                q.append((nx, ny))
+                count += 1
+    return count
+
+for i in range(n):
+    for j in range(n):
+        if graph[i][j] == 1:
+            house_num.append(bfs(i, j))
+
+# ================================================================================================================= #
+
+# BFS 문제 (BJ_16236)
+
