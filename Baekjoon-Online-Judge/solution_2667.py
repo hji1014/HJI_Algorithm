@@ -32,7 +32,7 @@ def dfs(x, y):
     if graph[x][y] == 1:
         global count                  # 전역 변수로 설정 안 하면 에러 발생 / 리스트 자료형 사용하면 전역 변수로 선언 안 해도 됨
         count += 1
-        graph [x][y] = 0
+        graph[x][y] = 0
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
