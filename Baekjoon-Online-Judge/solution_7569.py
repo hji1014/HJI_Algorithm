@@ -93,8 +93,8 @@ dx = [-1, 1, 0, 0, 0, 0]                # 방향 : 상, 하, 좌, 우, 위, 아�
 dy = [0, 0, -1, 1, 0, 0]
 dz = [0, 0, 0, 0, 1, -1]
 
-q = deque()
-for i in range(h):
+q = deque()                             # 순차적으로 하나씩 값 올려주면서 바꾸기 위해서는
+for i in range(h):                      # -> 큐에 미리 1인 위치를 미리 담아두고 이후에 BFS를 수행하는 것이 핵심
     for j in range(n):
         for k in range(m):
             if graph[i][j][k] == 1:
@@ -110,13 +110,13 @@ def bfs():
             if -1 < nz < h and -1 < nx < n and -1 < ny < m:
                 if graph[nz][nx][ny] == 0:
                     graph[nz][nx][ny] = graph[z][x][y] + 1
-                    q.append((nz, nx, ny))      # 또 넣어줌?
+                    q.append((nz, nx, ny))      # 값 변경 전 값이 0인 위치를 저장
 
 bfs()
 
-impossible = False
+impossible = False                          # 정답 출력
 count = -1e9
-for i in range(h):                          # 정답 출력
+for i in range(h):
     for j in range(n):
         for k in range(m):
             if graph[i][j][k] == 0:
