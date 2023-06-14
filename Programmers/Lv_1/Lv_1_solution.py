@@ -1202,7 +1202,7 @@ def solution(dartResult):
 
     return sum(score)
 
-# 덧칠하기
+# 덧칠하기 (내 풀이)
 # 접근 방식 : 붓의 길이가 하나냐 하나 이상이냐 -> 더했을 때 인덱스 넘어가냐 안 넘어가냐
 """
 틀린 이유 : 번뜩이는 아이디어를 떠올리지 못함. 무작정 구현할려고만 했음
@@ -1236,7 +1236,7 @@ while zero_num > 0:
         count = len(section)
         break
 
-# 덧칠하기
+# 덧칠하기 (블로그 풀이)
 """
 ref: https://dduniverse.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8D%A7%EC%B9%A0%ED%95%98%EA%B8%B0-%ED%8C%8C%EC%9D%B4%EC%8D%AC-python
 """
@@ -1249,3 +1249,89 @@ def solution(n, m, section):
             paint = section[i]
 
     return answer
+
+# 기사단원의 무기 (내 풀이)
+"""
+틀린 이유 : 시간 초과 -> 에라토스테네스의 체 써야할 듯 -> 이건 소수 찾기
+-> 1) 범위 : 제곱근까지 2) 약수이면서 제곱이 아닌 수 +2, 제곱이면 +1
+"""
+def solution(number, limit, power):
+    powers = []
+    for i in range(1, number + 1):
+        #약수의 개수
+        d_num = 0
+        for j in range(1, i + 1):
+            if i % j == 0:
+                d_num += 1
+        powers.append(d_num)
+    print(powers)
+    for i in range(len(powers)):
+        if powers[i] > limit:
+            powers[i] = power
+    return sum(powers)
+
+solution(100000, 2, 1)
+
+powers = []
+for i in range(1, 10 + 1):
+    arr = set(range(1, i + 1))
+    for j in range(2, i + 1):
+        arr -= set(range(j * 2, i + 1, j))
+    powers.append(len(arr))
+print(powers)
+
+# 기사단원의 무기 (블로그 풀이)
+def solution(number, limit, power):
+    powers = []
+    for i in range(1, number + 1):
+        count = 0
+        for j in range(1, (int(i ** (1/2)) + 1)):       # i의 제곱근까지로 탐색 범위 제한
+            if i % j == 0 and i // j != j:              # 제곱값이 i가 아니면 +2
+                count += 2
+            elif i % j == 0 and i // j == j:            # 제곱값이 i면 +1
+                count += 1
+        if count > limit:
+            powers.append(power)
+        else:
+            powers.append(count)
+    return sum(powers)
+
+# 로또의 최고 순위와 최저 순위
+def solution(lottos, win_nums):
+    answer = []
+    now_same = len(set(lottos) & set(win_nums))
+    zero_num = 0
+    for i in lottos:
+        if i == 0:
+            zero_num += 1
+    best = now_same + zero_num
+    worst = now_same
+
+    if best >= 6:
+        answer.append(1)
+    elif best == 5:
+        answer.append(2)
+    elif best == 4:
+        answer.append(3)
+    elif best == 3:
+        answer.append(4)
+    elif best == 2:
+        answer.append(5)
+    else:
+        answer.append(6)
+
+    if worst >= 6:
+        answer.append(1)
+    elif worst == 5:
+        answer.append(2)
+    elif worst == 4:
+        answer.append(3)
+    elif worst == 3:
+        answer.append(4)
+    elif worst == 2:
+        answer.append(5)
+    else:
+        answer.append(6)
+
+    return answer
+
