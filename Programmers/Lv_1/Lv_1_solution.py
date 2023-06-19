@@ -1335,3 +1335,53 @@ def solution(lottos, win_nums):
 
     return answer
 
+# 숫자 짝궁
+"""
+틀린 이유 : 시간초과, test case 2개 실패
+"""
+def solution(X, Y):
+    answer = ''
+    arr = []
+    X = list(X)
+    Y = list(Y)
+    if len(X) >= len(Y):
+        for i in X:
+            if i in Y:
+                arr.append(i)
+                Y.remove(i)
+        ans = list(map(int, arr))
+        ans.sort(reverse=True)
+    else:
+        for i in Y:
+            if i in X:
+                arr.append(i)
+                Y.remove(i)
+        ans = list(map(int, arr))
+        ans.sort(reverse=True)
+    if len(ans) == 0:
+        answer = '-1'
+    else:
+        for i in ans:
+            answer += str(i)
+        answer = int(answer)
+        answer = str(answer)
+    return answer
+
+# 숫자 짝궁 (블로그 풀이)
+"""
+ref : https://velog.io/@minmong/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%AB%EC%9E%90-%EC%A7%9D%EA%BF%8D-Python-velog
+직관적이지만 sort 함수로 인해 시간초과 우려
+"""
+def solution(X, Y):
+    answer = []
+    for i in (set(X) & set(Y)) :
+        for j in range(min(X.count(i), Y.count(i))):
+            answer.append(i)
+    answer.sort(reverse=True)
+    if len(answer) == 0:
+        return "-1"
+    if answer[0] == "0":
+        return "0"
+    answer = "".join(answer)
+    return answer
+
