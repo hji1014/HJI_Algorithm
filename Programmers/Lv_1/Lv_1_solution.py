@@ -1335,7 +1335,7 @@ def solution(lottos, win_nums):
 
     return answer
 
-# 숫자 짝궁
+# 숫자 짝궁 (내 풀이)
 """
 틀린 이유 : 시간초과, test case 2개 실패
 """
@@ -1385,3 +1385,41 @@ def solution(X, Y):
     answer = "".join(answer)
     return answer
 
+# 옹알이 (2) 내 풀이
+"""
+틀린 이유 : ayayeaya, ayaayaye -> 이러한 입력 해결해야 함
+"""
+def solution(babbling):
+    answer = 0
+    case = ["aya", "ye", "woo", "ma"]
+    arr = []
+    for i in babbling:
+        word = list(i)
+        for j in case:
+            if j in i:
+                for k in j:
+                    word.remove(k)
+        if len(word) == 0:
+            answer += 1
+
+    return answer
+
+# 옹알이 (2) (블로그 풀이)
+"""
+ref : https://jimoou.github.io/CodingTest10
+<핵심>
+1) 가능 발음 * 2한 값이 있는지 확인 (연속 발음 예외처리)
+2) replace(바꿀 문자열, ' ')로 가능 발음을 공백으로 바꿔주면 배열로 안 바꿔도 됨
+3) strip()으로 문자열 내 모든 공백 제거 
+"""
+def solution(babbling):
+    answer = 0
+    case = ["aya", "ye", "woo", "ma"]
+    for i in babbling:
+        for j in case:
+            if j * 2 not in i:
+                i = i.replace(j, ' ')
+        if i.strip() == '':
+            answer += 1
+
+    return answer
