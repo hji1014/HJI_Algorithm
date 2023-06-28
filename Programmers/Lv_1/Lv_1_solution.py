@@ -1423,3 +1423,35 @@ def solution(babbling):
             answer += 1
 
     return answer
+
+# 체육복
+def solution(n, lost, reserve):
+    answer = 0
+    lost.sort()
+    reserve.sort()
+    check = [False] * n
+    check_reserve = [0] * n
+    for i in range(len(check)):
+        if (i + 1) not in lost:
+            check[i] = True
+        if (i + 1) in lost and (i + 1) in reserve:
+            check[i] = True
+    for i in reserve:
+        if i not in lost:
+            check_reserve[i - 1] = 1
+    for i in reserve:
+        possible = []
+        possible.append(i - 1)
+        possible.append(i + 1)
+        for j in possible:
+            if 0 < j <= n:
+                if check_reserve[i - 1] == 1:
+                    if check[j - 1] == False:
+                        check_reserve[i - 1] = 0
+                        check[j - 1] = True
+    for i in check:
+        if i == True:
+            answer += 1
+
+
+    return answer
