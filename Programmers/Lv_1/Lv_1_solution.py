@@ -1455,3 +1455,19 @@ def solution(n, lost, reserve):
 
 
     return answer
+
+# 완주하지 못 한 선수 (내 풀이)
+"""
+틀린 이유 : 효율성 테스트 모두 실패 -> 해시 자료구조 사용하여 효율성 높여야 할 듯
+"""
+def solution(participant, completion):
+    participant.sort()
+    completion.sort()
+    for i in participant.copy():
+        if i in completion:
+            completion.remove(i)
+            participant.remove(i)
+        if len(completion) == 0:
+            answer = participant[0]
+    return answer
+
