@@ -1456,7 +1456,7 @@ def solution(n, lost, reserve):
 
     return answer
 
-# 완주하지 못 한 선수 (내 풀이)
+# 완주하지 못한 선수 (내 풀이)
 """
 틀린 이유 : 효율성 테스트 모두 실패 -> 해시 자료구조 사용하여 효율성 높여야 할 듯
 """
@@ -1471,3 +1471,22 @@ def solution(participant, completion):
             answer = participant[0]
     return answer
 
+# 완주하지 못한 선수 (블로그 풀이)
+"""
+ref : (개념) https://go-coding.tistory.com/30, (코드) https://mgyo.tistory.com/177
+"""
+def solution(participant, completion):
+    hash_dict = {}
+    sum_hash = 0
+
+    # 1. Hash Map 만들기
+    # 2. participant의 sum(hash) 구하기
+    for i in participant:
+        hash_dict[hash(i)] = i
+        sum_hash += hash(i)
+
+    # 3. completion의 sum(hash) 빼기
+    for j in completion:
+        sum_hash -= hash(j)
+
+    return hash_dict[sum_hash]
