@@ -1490,3 +1490,43 @@ def solution(participant, completion):
         sum_hash -= hash(j)
 
     return hash_dict[sum_hash]
+
+# 문자열 나누기 (내 풀이)
+"""
+틀린 이유 : 문자열을 나눈 후 첫 문자를 정해주는 부분에서 구현에 실패함
+"""
+def solution(s):
+    answer = 0
+    x = s[0]
+    x_num = 1
+    not_x_num = 0
+    for i in range(1, len(s)):
+        if s[i] == x:
+            x_num += 1
+        else:
+            not_x_num += 1
+            if x_num == not_x_num:
+                answer += 1
+                x_num = 1
+                not_x_num = 0
+                if i < (len(s) - 2):
+                    x = s[i + 1]
+    return answer
+
+# 문자열 나누기 (블로그 풀이)
+"""
+ref : https://velog.io/@minmong/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%82%98%EB%88%84%EA%B8%B0-Python
+"""
+def solution(s):
+    answer = 0
+    cnt1 = 0        # 첫 문자 개수
+    cnt2 = 0        # 그 후 문자 개수
+    for i in s:
+        if cnt1 == cnt2:
+            answer += 1     # 어차피 하나의 문자열은 무조건 나옴
+            now = i
+        if now == i:
+            cnt1 += 1
+        else:
+            cnt2 += 1
+    return answer
