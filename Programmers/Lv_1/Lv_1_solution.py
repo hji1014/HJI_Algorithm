@@ -1530,3 +1530,36 @@ def solution(s):
         else:
             cnt2 += 1
     return answer
+
+# 대충 만든 자판
+"""
+핵심 :
+1) 버튼을 눌러야 하는 횟수를 기준으로 내림차순 정렬,
+2) targets의 키 중 하나라도 keymap에 없으면 큰 수를 ans에서 빼주고 총합이 큰 음수라면 -1로 저장
+"""
+def solution(keymap, targets):
+    answer = []
+    key_tuple = []
+    key_dict = {}
+    
+    for i in range(len(keymap)):
+        for j in range(len(keymap[i])):
+            key_tuple.append((keymap[i][j], j + 1))
+    key_tuple.sort(key=lambda x: x[1], reverse=True)        # 버튼을 눌러야 하는 횟수를 기준으로 내림차순 정렬
+
+    for i, j in key_tuple:
+        key_dict[i] = j
+
+    for i in targets:
+        ans = 0
+        for j in i:
+            if j in list(key_dict.keys()):
+                ans += key_dict[j]
+            else:
+                ans -= 10e9
+        if ans < -50000:
+            answer.append(-1)
+        else:
+            answer.append(ans)
+
+    return answer
