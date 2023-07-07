@@ -251,3 +251,86 @@ def solution(number, n, m):
     else:
         return 0
 
+# 문자 반복 출력하기
+def solution(my_string, n):
+    answer = ''
+    for i in my_string:
+        answer += i * n
+    return answer
+
+# 자릿수 더하기
+def solution(n):
+    answer = 0
+    for i in str(n):
+        answer += int(i)
+    return answer
+
+# 숨어있는 숫자의 덧셈 (1)
+def solution(my_string):
+    answer = 0
+    for i in my_string:
+        if i.isdigit() == True:
+            answer += int(i)
+    return answer
+
+# 짝수는 싫어요
+def solution(n):
+    answer = []
+    for i in range(n + 1):
+        if i % 2 != 0:
+            answer.append(i)
+    return answer
+
+# 문자열안에 문자열
+def solution(str1, str2):
+    if str2 in str1:
+        return 1
+    return 2
+
+# 대문자로 바꾸기
+def solution(myString):
+    answer = ''
+    for i in myString:
+        answer += i.upper()
+    return answer
+
+# n의 배수
+def solution(num, n):
+    if num % n == 0:
+        return 1
+    return 0
+
+# 문자열 정수의 합
+def solution(num_str):
+    answer = 0
+    for i in num_str:
+        answer += int(i)
+    return answer
+
+# 문자열 붙여서 출력하기
+str1, str2 = input().strip().split(' ')
+print(str1 + str2)
+
+# 수 조작하기 1
+def solution(n, control):
+    for i in control:
+        if i == 'w':
+            n += 1
+        elif i == 's':
+            n -= 1
+        elif i == 'd':
+            n += 10
+        elif i == 'a':
+            n -= 10
+    return  n
+
+# n개 간격의 원소들
+def solution(num_list, n):
+    answer = []
+    order = 0
+    while True:
+        answer.append(num_list[n * order])
+        order += 1
+        if (n * order) > len(num_list) - 1:
+            break
+    return answer
