@@ -40,6 +40,3 @@ for a, b in data:
 
     else:
         room += 1
-        #next_time = b
-        #if next_time >= now_time:
-        #    now_time = next_time
