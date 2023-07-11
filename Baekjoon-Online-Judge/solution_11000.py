@@ -2,6 +2,11 @@
 [강의실 배정]
 """
 
+# 내 풀이
+"""
+틀린 이유 : 
+"""
+
 """
 # 1
 import sys
@@ -40,3 +45,20 @@ for a, b in data:
 
     else:
         room += 1
+        #next_time = b
+        #if next_time >= now_time:
+        #    now_time = next_time
+
+# 블로그 풀이
+"""
+ref : https://hongcoding.tistory.com/79, https://gmlwjd9405.github.io/2018/05/10/data-structure-heap.html
+"""
+from collections import deque
+
+n = int(input())
+data = []
+for _ in range(n):
+    data.append(list(map(int, input().split(' '))))
+
+room = deque()
+room.append(data[0][1])
