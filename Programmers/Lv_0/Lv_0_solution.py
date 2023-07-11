@@ -334,3 +334,47 @@ def solution(num_list, n):
         if (n * order) > len(num_list) - 1:
             break
     return answer
+
+# 소문자로 바꾸기
+def solution(myString):
+    answer = ''
+    for i in myString:
+        answer += i.lower()
+    return answer
+
+# 문자열의 앞에 n글자
+def solution(my_string, n):
+    return my_string[0:n]
+
+# 조건에 맞게 수열 변환하기
+def solution(arr):
+    answer = []
+    for i in arr:
+        if i >= 50 and i % 2 == 0:
+            answer.append(i / 2)
+        elif i < 50 and i % 2 == 1:
+            answer.append(i * 2)
+        else:
+            answer.append(i)
+    return answer
+
+# 길이에 따른 연산
+def solution(num_list):
+    if len(num_list) >= 11:
+        return sum(num_list)
+    else:
+        answer = 1
+        for i in num_list:
+            answer *= i
+        return answer
+
+# 카운트 업
+def solution(start, end):
+    answer = []
+    for i in range(start, end + 1):
+        answer.append(i)
+    return answer
+
+# 문자열의 뒤의 n글자
+def solution(my_string, n):
+    return my_string[-n:]
