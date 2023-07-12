@@ -1541,7 +1541,7 @@ def solution(keymap, targets):
     answer = []
     key_tuple = []
     key_dict = {}
-    
+
     for i in range(len(keymap)):
         for j in range(len(keymap[i])):
             key_tuple.append((keymap[i][j], j + 1))
@@ -1561,5 +1561,41 @@ def solution(keymap, targets):
             answer.append(-1)
         else:
             answer.append(ans)
+
+    return answer
+
+# 크레인 인형 뽑기
+"""
+디버깅 내용 :
+1. remove() 함수 쓰면 타겟 인덱스가 아닌 앞에 동일한 값이 지워질 수 있음
+2. basket = [1, 1]일 경우 while문이 안 끝나니 조건 추가
+3. basket 탐색 종료를 확인하는 조건을 basket에서 for문이 돌아갈 때마다 count를 하여 count값이 basket 길이와 같을 때 종료하는 것으로 수정
+   (3번 디버깅 안 했을 시 반례 확인 : 프로그래머스 질문글 참고)
+"""
+def solution(board, moves):
+    answer = 0
+    basket = []
+    n = len(board)
+
+    for i in moves:
+        for j in range(n):
+            if board[j][i - 1] != 0:
+                basket.append(board[j][i - 1])
+                board[j][i - 1] = 0
+                break
+
+    complete = 0
+    while True:
+        for i in range(len(basket)):
+            complete += 1
+            if i <= (len(basket) - 2):
+                if basket[i] == basket[i + 1]:
+                    answer += 2
+                    for _ in range(2):
+                        del basket[i]
+                    complete = 0
+                    break
+        if complete == len(basket) or len(basket) == 0:
+            break
 
     return answer
