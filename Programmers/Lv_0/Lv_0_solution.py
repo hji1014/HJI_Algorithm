@@ -378,3 +378,37 @@ def solution(start, end):
 # 문자열의 뒤의 n글자
 def solution(my_string, n):
     return my_string[-n:]
+
+# flag에 따라 다른 값 반환하기
+def solution(a, b, flag):
+    if flag:
+        return a + b
+    else:
+        return a - b
+
+# 특정한 문자를 대문자로 바꾸기
+def solution(my_string, alp):
+    answer = ''
+    for i in my_string:
+        if i == alp:
+            answer += i.upper()
+        else:
+            answer += i
+    return answer
+
+# n 번째 원소까지
+def solution(num_list, n):
+    return num_list[:n]
+
+# n 번째 원소부터
+def solution(num_list, n):
+    return num_list[(n -1):]
+
+# 문자 리스트를 문자열로 변환하기
+def solution(arr):
+    answer = ''
+    for i in arr:
+        answer += i
+    return answer
+
+# 
