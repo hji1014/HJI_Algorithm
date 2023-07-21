@@ -411,4 +411,31 @@ def solution(arr):
         answer += i
     return answer
 
-# 
+# 문자열로 변환
+def solution(n):
+    return str(n)
+
+# 마지막 두 원소
+def solution(num_list):
+    if num_list[-1] > num_list[-2]:
+        num_list.append(num_list[-1] - num_list[-2])
+    else:
+        num_list.append(2 * num_list[-1])
+    return num_list
+
+# 문자열 곱하기
+def solution(my_string, k):
+    return my_string * k
+
+# 카운트 다운
+def solution(start, end):
+    return [i for i in range(start, end - 1, -1)]
+
+# 첫 번째로 나오는 음수
+def solution(num_list):
+    answer = 0
+    for i in range(len(num_list)):
+        if num_list[i] < 0:
+            return i
+    if answer == 0:
+        return -1
